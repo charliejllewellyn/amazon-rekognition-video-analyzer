@@ -2,11 +2,11 @@ Create a Serverless Pipeline for Video Frame Analysis and Alerting
 ========
 
 ## Introduction
-This example builds on the prototype created by @moanany, https://github.com/aws-samples/amazon-rekognition-video-analyzer.
+This example builds on the prototype created by [@moanany](https://github.com/moanany), https://github.com/aws-samples/amazon-rekognition-video-analyzer.
 
 Imagine being able to capture live video streams, identify objects using deep learning, and then trigger actions or notifications based on the identified objects -- all with low latency and without a single server to manage.
 
-This is exactly what the project created by @moanany does. It has been extended to check also check the largest face in the video frame with a Rekognition collection that the application administrator can teach to learn specific faces.
+This is exactly what the project created by [@moanany](https://github.com/moanany) does. It has been extended to check also check the largest face in the video frame with a Rekognition collection that the application administrator can teach to learn specific faces.
 
 You will be able to build the video analysis solution, teach it to learn faces and check the results of the analysis.
 
@@ -96,5 +96,6 @@ The videocaptureip command fires up the MJPEG-based video capture client (source
 
 Here’s a sample command invocation.
 
+```
 pynt videocaptureip["http://192.168.0.2/video",20] # Captures 1 frame every 20.
 ```
