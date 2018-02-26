@@ -370,12 +370,12 @@ Resources:
             !Join
               - ''
               - - "rek-demo-s3-"
-                - !Ref "AWS::StackId"
+                - !Select [2, !Split ["/", !Ref "AWS::StackId"]
       RoleName: 
         !Join
           - ''
           - - "rek-demo-s3-"
-            - !Ref "AWS::StackId"
+            - !Select [2, !Split ["/", !Ref "AWS::StackId"]
     DependsOn: CollectionS3Bucket
 
   CollectionS3Bucket:
