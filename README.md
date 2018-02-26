@@ -85,7 +85,7 @@ Once you have uploaded the image(s) you create an index of the images.
 export watchlistBucketName="rek-demo-watchlist-<id>"
 export watchlistImageName="<name of file you uploaded previously"
 aws rekognition create-collection --collection-id rek-demo
-aws rekognition index-faces --image '{"S3Object":{"Bucket":"'$watchListBucketName'","Name":"'$watchlistImageName'"}}' --collection-id "rek-demo"
+aws rekognition index-faces --image '{"S3Object":{"Bucket":"'$watchlistBucketName'","Name":"'$watchlistImageName'"}}' --collection-id "rek-demo"
 ```
 
 ### Run a local webserver to review the results
