@@ -90,11 +90,9 @@ def process_image(event, context):
             MinConfidence=rekog_min_conf
         )
 
-
         #Iterate on rekognition labels. Enrich and prep them for storage in DynamoDB
         labels_on_watch_list = []
         for label in rekog_response['Labels']:
-            
             lbl = label['Name']
             conf = label['Confidence']
             label['OnWatchList'] = False
@@ -111,6 +109,25 @@ def process_image(event, context):
 
             #Convert from float to decimal for DynamoDB
             label['Confidence'] = decimal.Decimal(conf)
+
+        try:
+            rekog_response2 = rekog_client.search_faces_by_image(
+                CollectionId="rek-demo",
+                Image={
+                    'Bytes': img_bytes
+                },
+                MaxFaces=123,
+                FaceMatchThreshold=90.0
+            )
+            if len(rekog_response2['FaceMatches']) >= 1:
+                newLabel = {}
+                newLabel['Name'] = rekog_response2['FaceMatches'][0]['Face']['FaceId']
+                newLabel['Confidence'] = decimal.Decimal(rekog_response2['FaceMatches'][0]['Face']['Confidence'])
+                newLabel['OnWatchList'] = True
+                rekog_response['Labels'].insert(0, deepcopy(newLabel))
+        except:
+            print('No faces detected')
+        print(labels_on_watch_list)
 
         #Send out notification(s), if needed
         if len(labels_on_watch_list) > 0 \
@@ -153,7 +170,8 @@ def process_image(event, context):
         )
         
         #Persist frame data in dynamodb
-
+        print(rekog_response)
+        print(rekog_response2)
         item = {
             'frame_id': frame_id,
             'processed_timestamp' : processed_timestamp,
@@ -174,3 +192,4 @@ def process_image(event, context):
 
 def handler(event, context):
     return process_image(event, context)
+
