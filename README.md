@@ -75,9 +75,9 @@ pynt createstack
 ```
 
 ### Create a Rekognition index
-*Note:* you need to find the name of the watchlist bucket created during the stack location, you can find it via the [AWS S3 console](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/what-is-s3.html). It'll be named "rek-demo-watchlist-<id>". 
+*Note:* you need to find the name of the watchlist bucket created during the stack location, you can find it via the [AWS S3 console](https://s3.console.aws.amazon.com/s3/home). It'll be named "rek-demo-watchlist-<id>". 
 
-You first need to upload an image of the face you want to match to the bucket named "rek-demo-watchlist-<id>". You can do this via the AWS console following this [guide]https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html().
+You first need to upload an image of the face you want to match to the bucket named "rek-demo-watchlist-<id>". You can do this via the AWS console following this [guide](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html).
 
 Once you have uploaded the image(s) you create an index of the images.
 
