@@ -14,6 +14,11 @@ Parameters:
     MinLength: "1"
     Description: "Enter the name of the S3 bucket containing source .zip files."
 
+  CollectionS3BucketParameter: 
+    Type: String
+    MinLength: "1"
+    Description: "Enter the name of the S3 bucket to store images for watch list demo."
+
   ImageProcessorSourceS3KeyParameter:
     Type: String
     MinLength: "1"
@@ -337,6 +342,38 @@ Resources:
       SourceArn: !Join [ "", ["arn:aws:execute-api:", !Ref "AWS::Region", ':', !Ref "AWS::AccountId", ':', !Ref VidAnalyzerRestApi, '/*/GET/', !Ref FrameFetcherApiResourcePathPart]]
     DependsOn:
       - VidAnalyzerApiDeployment
+
+  RekognitionCollectionS3BucketRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - 
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "rekognition.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        -
+          PolicyDocument: 
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - s3:GetObject
+              Resource: !GetAtt CollectionBucket.Arn
+          PolicyName: rek-demo-s3
+      RoleName: rek-demo-s3
+    DependsOn: CollectionS3Bucket
+
+  CollectionS3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties: 
+      BucketName: !Ref CollectionS3BucketParameter
 
 
 Outputs:

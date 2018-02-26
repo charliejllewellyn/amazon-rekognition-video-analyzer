@@ -105,7 +105,11 @@ div.inner-grid:nth-child(even) {
     height: auto;
     text-align: center;  /*align the inline(-block) elements horizontally*/
     font: 0/0 a;         /* remove the gap between inline(-block) elements */
-    margin: 5px;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);  margin: 5px;
 }
 
 .container:before {    /* create a full-height inline block pseudo=element */
