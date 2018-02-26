@@ -170,8 +170,6 @@ def process_image(event, context):
         )
         
         #Persist frame data in dynamodb
-        print(rekog_response)
-        print(rekog_response2)
         item = {
             'frame_id': frame_id,
             'processed_timestamp' : processed_timestamp,
