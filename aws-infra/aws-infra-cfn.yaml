@@ -369,13 +369,13 @@ Resources:
           PolicyName:
             !Join:
               - ''
-              - - rek-demo-s3
-                - !Ref AWS::StackId
+              - - "rek-demo-s3-"
+                - !Ref: "AWS::StackId"
       RoleName: 
         !Join:
           - ''
-          - - rek-demo-s3
-            - !Ref AWS::StackId
+          - - "rek-demo-s3-"
+            - !Ref: "AWS::StackId"
     DependsOn: CollectionS3Bucket
 
   CollectionS3Bucket:
