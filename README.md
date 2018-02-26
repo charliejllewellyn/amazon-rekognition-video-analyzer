@@ -41,7 +41,9 @@ aws configure
 
 11. Finally, obtain an IP camera capable of output MJEPG connected and accessful from the machine running the docker container.
 
-## Building the prototype
+# Building the prototype
+
+## Overview
 Common interactions with the project have been simplified for you. Using pynt, the following tasks are automated with simple commands: 
 
 - Packaging lambda code into .zip files and deploying them into an Amazon S3 bucket
@@ -53,6 +55,8 @@ Common interactions with the project have been simplified for you. Using pynt, t
 - Run a lightweight local HTTP server to serve Web UI for development and demo purposes
 
 *Note:* All these tasks assume you are running them from the docker image deployed during the pre-req setup. 
+
+## Implementation Steps
 
 ### Package lambda
 The following commands package the lambda functions, create an S3 bucket to store them and push upload them to the new bucket.
@@ -71,7 +75,7 @@ pynt createstack
 ```
 
 ### Create a Rekognition index
-*Note:* you need to find the name of the watchlist bucket created during the stack location, you can find it via the AWS S3 console. It'll be named "rek-demo-watchlist-<id>"
+*Note:* you need to find the name of the watchlist bucket created during the stack location, you can find it via the [AWS S3 console](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/what-is-s3.html). It'll be named "rek-demo-watchlist-<id>". 
 
 You first need to upload an image of the face you want to match to the bucket named "rek-demo-watchlist-<id>". You can do this via the AWS console following this [guide]https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html().
 
@@ -91,6 +95,8 @@ This will deploy a local web service to show the results of the video analysis.
 pynt webui ; pynt webuiserver &
 ```
 
+## Using the application
+
 ### Stream video data to your service
 The videocaptureip command fires up the MJPEG-based video capture client (source code under the client/ directory). This command accepts, as parameters, an MJPEG stream URL and an optional frame capture rate. The capture rate is defined as 1 every X number of frames. Captured frames are packaged, serialized, and sent to the Kinesis Frame Stream. The video capture client for IP cameras uses Open CV 3 to do simple image processing operations on captured frame images – mainly image rotation.
 
@@ -99,3 +105,7 @@ Here’s a sample command invocation.
 ```
 pynt videocaptureip["http://192.168.0.2/video",20] # Captures 1 frame every 20.
 ```
+
+### Access the web console
+
+Browse to "http://localhost:8080" on the docker host to see the results of the anaylytics service.
