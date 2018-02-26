@@ -367,15 +367,15 @@ Resources:
               - s3:GetObject
               Resource: !GetAtt CollectionS3Bucket.Arn
           PolicyName:
-            !Join:
+            !Join
               - ''
               - - "rek-demo-s3-"
-                - !Ref: "AWS::StackId"
+                - !Ref "AWS::StackId"
       RoleName: 
-        !Join:
+        !Join
           - ''
           - - "rek-demo-s3-"
-            - !Ref: "AWS::StackId"
+            - !Ref "AWS::StackId"
     DependsOn: CollectionS3Bucket
 
   CollectionS3Bucket:
