@@ -365,7 +365,7 @@ Resources:
             - Effect: Allow
               Action:
               - s3:GetObject
-              Resource: !GetAtt CollectionBucket.Arn
+              Resource: !GetAtt CollectionS3Bucket.Arn
           PolicyName: rek-demo-s3
       RoleName: rek-demo-s3
     DependsOn: CollectionS3Bucket
