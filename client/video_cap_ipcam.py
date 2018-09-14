@@ -3,7 +3,7 @@
 #     http://aws.amazon.com/asl/
 # or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-import urllib
+import urllib3
 import sys
 import datetime
 import base64
@@ -90,8 +90,10 @@ def main():
         print("usage: video_cap_ipcam.py <ip-cam-url> [capture-rate]")
         return
 
+    http = urllib3.PoolManager()
     print("Capturing from '{}' at a rate of 1 every {} frames...".format(ip_cam_url, capture_rate))
-    stream = urllib.urlopen(ip_cam_url)
+    stream = http.request('GET', ip_cam_url,preload_content=False)
+    print('Written out file...')
     
     bytes = ''
     pool = Pool(processes=3)
